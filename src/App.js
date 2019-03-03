@@ -21,7 +21,6 @@ class App extends Component {
     e.preventDefault();
     let newItem = { id: this.state.id, item: this.state.item };
     let updateItems = [...this.state.items, newItem];
-    console.log(newItem);
     this.setState({ items: updateItems, id: uuid(), item: "", edit: false });
   };
 
@@ -37,6 +36,18 @@ class App extends Component {
       items: filterItem
     });
   };
+
+  handleEdit = id => {
+    let filterItem = this.state.items.filter(item => item.id !== id);
+    let findItem = this.state.items.find(item => item.id === id);
+    console.log(findItem);
+    this.setState({
+      items: filterItem,
+      item: findItem.item,
+      id: id,
+      edit: true
+    });
+  };
   render() {
     return (
       <div className="containner">
@@ -47,11 +58,13 @@ class App extends Component {
               item={this.state.item}
               handleChange={this.handleChange}
               handleSubmit={this.handleSubmit}
+              editItem={this.state.edit}
             />
             <TodoList
               items={this.state.items}
               clearList={this.clearList}
               handleDelete={this.handleDelete}
+              handleEdit={this.handleEdit}
             />
           </div>
         </div>
