@@ -52,7 +52,7 @@ class App extends Component {
     return (
       <div className="containner">
         <div className="row">
-          <div className="col-10 mx-auto col-8 mt-4">
+          <div className="col-10 mx-auto col-md-8 mt-4">
             <h3 className="text-center">Todo Input</h3>
             <TodoInput
               item={this.state.item}
