@@ -19,10 +19,23 @@ class App extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const newItem = { id: this.state.id, item: this.state.item };
-    const updateItems = [...this.state.items, newItem];
+    let newItem = { id: this.state.id, item: this.state.item };
+    let updateItems = [...this.state.items, newItem];
     console.log(newItem);
     this.setState({ items: updateItems, id: uuid(), item: "", edit: false });
+  };
+
+  clearList = () => {
+    this.setState({
+      items: []
+    });
+  };
+
+  handleDelete = id => {
+    let filterItem = this.state.items.filter(item => item.id !== id);
+    this.setState({
+      items: filterItem
+    });
   };
   render() {
     return (
@@ -35,7 +48,11 @@ class App extends Component {
               handleChange={this.handleChange}
               handleSubmit={this.handleSubmit}
             />
-            <TodoList items={this.state.items} />
+            <TodoList
+              items={this.state.items}
+              clearList={this.clearList}
+              handleDelete={this.handleDelete}
+            />
           </div>
         </div>
       </div>
